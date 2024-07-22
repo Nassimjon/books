@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_book
+    ports:
+      - "8884:1040"
+    depends_on:
+      - my_php1.1
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    environment:
+      - NGINX_HOST=books.com
+      - NGINX_PORT=1040
+
+  my_php1.1:
+    build:
+        context: .
+        dockerfile: ./_docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
+    container_name: php_book
+    command: >
+        sh -c "
+        chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache &&
+        chmod -R 775 /var/www/storage /var/www/bootstrap/cache &&
+        php-fpm
+        "
+
+  db:
+      image: postgres:16.3
+      container_name: postgres_book
+      ports:
+        - "8821:5432"
+      environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_DB: my_books
+          PGDATA: /var/lib/postgresql/data
+      volumes:
+        - ./db/book_store/postgres_data:/var/lib/postgresql/data
