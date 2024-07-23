@@ -21,19 +21,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/auth', [AuthController::class, 'getAuthPage'])->middleware('guest')->name('auth');
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('page/signUp', [AuthController::class, 'getAuthPage']);
+    Route::get('page/signIn', [LoginController::class, 'getLoginPage']);
+    Route::post('/create', [AuthController::class, 'singUpUser']);
+});
 
-Route::post('/authUser', [AuthController::class, 'authUser']);
 
-Route::get('/index',[MainController::class, 'getMainPage'])->middleware('auth')->name('index');
+Route::group(['prefix' => 'main'], function() {
+    Route::get('/', [MainController::class, 'getMainPage']);
+});
 
-Route::get('/welcomePage', [MainController::class, 'getWelcomePage'])->middleware('admin')->name('welcome');
 
+
+
+Route::get('/welcomePage', [MainController::class, 'getWelcomePage']);
 Route::post('/login', [LoginController::class, 'loginUser']);
 
-Route::get('/loginPage', [LoginController::class, 'getLoginPage']);
 
-
-//Auth::routes();
-
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
