@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
@@ -21,21 +22,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['prefix' => 'auth'], function () {
-    Route::get('page/signUp', [AuthController::class, 'getAuthPage']);
-    Route::get('page/signIn', [LoginController::class, 'getLoginPage']);
-    Route::post('/create', [AuthController::class, 'singUpUser']);
+Route::group(['prefix' => 'auth', ], function () {
+    Route::get('signup_page', [AuthController::class, 'getAuthPage'])->name('signup_page');
+    Route::get('login-page', [LoginController::class, 'getLoginPage']);
+    Route::post('create', [AuthController::class, 'singUpUser']);
+    Route::post('login', [LoginController::class, 'loginUser']);
 });
 
-
-Route::group(['prefix' => 'main'], function() {
+Route::group(['prefix' => 'main', 'middleware' => 'auth'], function() {
     Route::get('/', [MainController::class, 'getMainPage']);
 });
 
+Route::get('/welcomePage', [MainController::class, 'getWelcomePage'])->middleware('admin');
+
+Route::get('/admin', [TestController::class, 'getAdminPage']);
 
 
-
-Route::get('/welcomePage', [MainController::class, 'getWelcomePage']);
-Route::post('/login', [LoginController::class, 'loginUser']);
 
 

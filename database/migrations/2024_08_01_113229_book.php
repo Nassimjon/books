@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreign('genre_id')->references('id')->on('genres');
             $table->string('publisher');
-            $table->string('date_of_publication');
-            $table->string('author');
-            $table->int('price');
-            $table->timestamps();
+            $table->integer('price');
+            $table->integer('year');
+            $table->integer('amount');
         });
+        //
     }
 
     /**
@@ -28,5 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('books');
+        //
     }
 };

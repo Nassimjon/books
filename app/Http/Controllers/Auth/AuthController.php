@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\TestJob;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -23,19 +25,15 @@ class AuthController extends Controller
 
         $user->name = $name;
         $user->email= $email;
-        $user->password = $password;
-        $user->save();
+        $user->password = bcrypt($password);
 
-        Auth::login($user);
-        return redirect('/index');
+//        $user->save();
 
-//        if (Auth::check()) {
-//            //dd(Auth::id());
-//            return redirect('/index');
-//        }
-//        else
-//            return redirect('/welcome');
+        TestJob::dispatch($user)->delay(now()->addSeconds(11));
 
+//        Auth::login($user);
+
+        return redirect('main');
 
     }
 }

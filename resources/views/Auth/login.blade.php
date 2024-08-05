@@ -15,15 +15,15 @@
 <div class="min-h-screen flex items-center justify-center w-full dark:bg-gray-950">
     <div class="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md">
         <h1 class="text-2xl font-bold text-center mb-4 dark:text-gray-200">Sign Up for</h1>
-        <form action="/login" method="post">
+        <form action="/auth/login" novalidate method="post">
             @csrf
 {{--            <div class="mb-4">--}}
-{{--                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>--}}
-{{--                <input type="text" id="user_name" name="user_name" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your name" required>--}}
+{{--                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>--}}
+{{--                <input type="email" id="email" name="user_email" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>--}}
 {{--            </div>--}}
             <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-                <input type="email" id="email" name="user_email" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                <input type="text" id="user_name" name="user_name" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your name" required>
             </div>
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
@@ -37,7 +37,7 @@
                     <input type="checkbox" id="remember" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 focus:outline-none" checked>
                     <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Remember me</label>
                 </div>
-                <a href="#"
+                <a href="/auth/signup_page"
                    class="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create
                     Account</a>
             </div>

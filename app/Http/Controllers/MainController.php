@@ -14,4 +14,8 @@ class MainController extends Controller
     public function getWelcomePage() {
         return view('welcome');
     }
+
+    public function addBook() {
+
+    }
 }

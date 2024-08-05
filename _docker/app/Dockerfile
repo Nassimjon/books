@@ -39,7 +39,7 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 RUN composer install
 
 # Установка зависимостей Node.js
-#RUN npm install
+RUN npm install
 
 # Настройка прав доступа для директории storage и bootstrap/cache
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \

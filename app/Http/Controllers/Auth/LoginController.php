@@ -16,11 +16,12 @@ class LoginController extends Controller
 
     }
 
-   public function loginUser(Request $request) {
+   public function loginUser(Request $request)
+   {
 
-        if (Auth::attempt(
-            ['email' => $request->input('user_email'),
-             'password' => $request->input('user_password')]))
+
+        if (Auth::attempt(['name' => $request->input('user_name'),
+                           'password' => $request->input('user_password')]))
         {
             return redirect('/welcomePage');
         }
